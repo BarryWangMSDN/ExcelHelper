@@ -7,12 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Windows.Storage;
+using Windows.Storage.Pickers;
 
 namespace SpreadSheetWorking
 {
-    class SpreadsheetHelper
+    public class SpreadsheetHelper
     {
-        private static void CalculateSumOfCellRange(string docName, string worksheetName, string firstCellName, string lastCellName, string resultCell)
+       public static void CalculateSumOfCellRange(string docName, string worksheetName, string firstCellName, string lastCellName, string resultCell)
         {
             using (SpreadsheetDocument document = SpreadsheetDocument.Open(docName, true))
             {
@@ -182,6 +184,18 @@ namespace SpreadSheetWorking
                 worksheet.Save();
                 return newCell;
             }
+        }
+
+        public static async Task<string> filepathhelper()
+        {
+            FileOpenPicker openPicker = new FileOpenPicker();
+            openPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            openPicker.FileTypeFilter.Add(".xlsx");
+            StorageFile file = await openPicker.PickSingleFileAsync();
+
+            //StorageLibrary doclibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Pictures);
+            //string filepath = doclibrary.SaveFolder.Path;
+            return file.Path;
         }
     }
 

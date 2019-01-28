@@ -30,9 +30,12 @@ namespace SpreadSheetWorking
             
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+       
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
-           
+            var finalpath = await SpreadsheetHelper.filepathhelper();
+            SpreadsheetHelper.CalculateSumOfCellRange(finalpath, "MemberDetail", "A1", "A36", "result");
         }
     }
 }
