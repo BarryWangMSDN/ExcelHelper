@@ -3,20 +3,22 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.Storage.Streams;
 
 namespace SpreadSheetWorking
 {
     public class SpreadsheetHelper
     {
-       public static void CalculateSumOfCellRange(string docName, string worksheetName, string firstCellName, string lastCellName, string resultCell)
-        {
-            using (SpreadsheetDocument document = SpreadsheetDocument.Open(docName, true))
+       public static void CalculateSumOfCellRange(Stream stream, string worksheetName, string firstCellName, string lastCellName, string resultCell)
+        {           
+            using (SpreadsheetDocument document = SpreadsheetDocument.Open(stream, true))
             {
                 IEnumerable<Sheet> sheets = document.WorkbookPart.Workbook.Descendants<Sheet>().Where(s => s.Name == worksheetName);
                 if (sheets.Count() == 0)
@@ -186,16 +188,16 @@ namespace SpreadSheetWorking
             }
         }
 
-        public static async Task<string> filepathhelper()
+        public static async Task<Stream> filepathhelper()
         {
             FileOpenPicker openPicker = new FileOpenPicker();
             openPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
             openPicker.FileTypeFilter.Add(".xlsx");
             StorageFile file = await openPicker.PickSingleFileAsync();
-
+            IRandomAccessStream streams=await file.OpenAsync(FileAccessMode.ReadWrite);
             //StorageLibrary doclibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Pictures);
             //string filepath = doclibrary.SaveFolder.Path;
-            return file.Path;
+            return streams.AsStream();
         }
     }
 

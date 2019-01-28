@@ -1,6 +1,7 @@
 ﻿using DocumentFormat.OpenXml.Packaging;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -30,12 +31,19 @@ namespace SpreadSheetWorking
             
         }
 
-       
+
+      
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            var finalpath = await SpreadsheetHelper.filepathhelper();
-            SpreadsheetHelper.CalculateSumOfCellRange(finalpath, "MemberDetail", "A1", "A36", "result");
+           
+           
+                Stream finalstream = await SpreadsheetHelper.filepathhelper();
+                SpreadsheetHelper.CalculateSumOfCellRange(finalstream, "Sheet1", "B2", "B11", "result");
+          
+           
+            
+            
         }
     }
 }
