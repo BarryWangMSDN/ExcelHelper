@@ -1,6 +1,8 @@
 ﻿using DocumentFormat.OpenXml.Packaging;
+using SpreadSheetWorking.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -36,14 +38,19 @@ namespace SpreadSheetWorking
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-           
-           
+
+                MemberInfo mymember = new MemberInfo();
+                ObservableCollection<MemberInfo> memcoll = new ObservableCollection<MemberInfo>();
                 Stream finalstream = await SpreadsheetHelper.filepathhelper();
-                SpreadsheetHelper.CalculateSumOfCellRange(finalstream, "Sheet1", "B2", "B11", "result");
-          
-           
-            
-            
+            try
+            {
+                SpreadsheetHelper.ReadDataFromExcel(finalstream, "Sheet1", "A2", "A8", mymember, memcoll);
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex.Message.ToString());
+            }
+               
         }
     }
 }

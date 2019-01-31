@@ -1,8 +1,10 @@
 ﻿using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
+using SpreadSheetWorking.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -198,6 +200,150 @@ namespace SpreadSheetWorking
             //StorageLibrary doclibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Pictures);
             //string filepath = doclibrary.SaveFolder.Path;
             return streams.AsStream();
+        }
+
+        private static List<string> GetColumnNames(Stream stream, string worksheetName)
+        {   List<string> columnnames = new List<string>();
+            using (SpreadsheetDocument document = SpreadsheetDocument.Open(stream, true))
+            {
+                IEnumerable<Sheet> sheets = document.WorkbookPart.Workbook.Descendants<Sheet>().Where(s => s.Name == worksheetName);
+                if (sheets.Count() == 0)
+                {
+                    // The specified worksheet does not exist.
+                    
+                }
+                WorksheetPart worksheetPart = (WorksheetPart)document.WorkbookPart.GetPartById(sheets.First().Id);
+                Worksheet worksheet = worksheetPart.Worksheet;
+
+                //
+                foreach (Row row in worksheet.Descendants<Row>().Where(r => r.RowIndex.Value == 1))
+                {
+                    foreach (Cell cell in row)
+                    {
+                        columnnames.Add(cell.InnerText);
+                    }
+                }
+            }
+            return columnnames;
+        }
+
+        /// <summary>
+        /// hmmm actually maybe I should't write this code. It looks like this may not work or this is not a good practice when using reflection,
+        /// Anyway, let me have a try
+        /// OK I want to forget about it...
+        /// </summary>
+        private static void generateclass()
+        {
+
+        }
+
+
+        //All strings in an Excel worksheet are stored in a array like structure called the SharedStringTable.
+        //The goal of this table is to centralize all strings in an index based array and then if that string 
+        //is used multiple times in the document to just reference the index in this array.That being said, the 
+        //0 you received when you got the text value of the A1 cell is the index into the SharedStringTable.
+        //To get the real value you can use this helper function:
+
+        public static SharedStringItem GetSharedStringItemById(WorkbookPart workbookPart, int id)
+        {
+            return workbookPart.SharedStringTablePart.SharedStringTable.Elements<SharedStringItem>().ElementAt(id);
+        }
+
+        public static string GetTextfromCell(Cell cell, SpreadsheetDocument document)
+        {
+            string cellValue = string.Empty;
+            int id = -1;
+            if (Int32.TryParse(cell.InnerText, out id))
+            {
+                SharedStringItem item = GetSharedStringItemById(document.WorkbookPart, id);
+                if (item.Text != null)
+                {
+                    cellValue = item.Text.Text;
+                }
+                else if (item.InnerText != null)
+                {
+                    cellValue = item.InnerText;
+                }
+                else if (item.InnerXml != null)
+                {
+                    cellValue = item.InnerXml;
+                }
+            }
+            return cellValue;
+        }
+
+        //Responseale for loading data from a excel. Row 1 should be the Column name and the data should go from Row 2 
+        public static void ReadDataFromExcel(Stream stream, string worksheetName, string firstCellName, string lastCellName,MemberInfo member,ObservableCollection<MemberInfo> membercollection)
+        {
+           
+            using (SpreadsheetDocument document = SpreadsheetDocument.Open(stream, false))
+            {
+                IEnumerable<Sheet> sheets = document.WorkbookPart.Workbook.Descendants<Sheet>().Where(s => s.Name == worksheetName);
+                if (sheets.Count() == 0)
+                {
+                    // The specified worksheet does not exist.
+                    return;
+                }
+                WorksheetPart worksheetPart = (WorksheetPart)document.WorkbookPart.GetPartById(sheets.First().Id);
+                Worksheet worksheet = worksheetPart.Worksheet;
+                
+                // Get the row number and column name for the first and last cells in the range.
+                uint firstRowNum = GetRowIndex(firstCellName);
+                uint lastRowNum = GetRowIndex(lastCellName);
+                string firstColumn = GetColumnName(firstCellName);
+                string lastColumn = GetColumnName(lastCellName);
+
+
+                foreach (Row row in worksheet.Descendants<Row>().Where(r => r.RowIndex.Value >= firstRowNum && r.RowIndex.Value <= lastRowNum))
+                {
+                   
+                    var x=row.Descendants<Cell>().Count();
+                    int i = 1;
+                   
+                   
+                    foreach (Cell cell in row.Descendants<Cell>())
+                    {
+                        if (cell.DataType != null)
+                        {
+                            if (cell.DataType == CellValues.SharedString)
+                            {
+                               
+
+
+                                //    if (i == 1)
+                                //{
+                                //    // cell.DataType = CellValues.String;
+                                //    member.UserName = cell.InnerText;
+                                //}
+                                //if (i == 2)
+                                //{
+                                //    member.Alias = cell.InnerText;
+                                //}
+                                //if (i == 3)
+                                //{
+                                //    member.WsAlias = cell.InnerText;
+                                //}
+                                //if (i == 4)
+                                //{
+                                //    member.Technology = cell.InnerText;
+                                //}
+                                //if (i == 5)
+                                //{
+                                //    member.Group = cell.InnerText;
+                                //}
+                                //if (i == 6)
+                                //{
+                                //    member.VacationHour = Int32.Parse(cell.InnerText);
+                                //}
+                            }
+                                
+                        }                           
+                        i++;
+                    }
+                    i = 0;
+                    membercollection.Add(member);         
+                }
+            }
         }
     }
 
