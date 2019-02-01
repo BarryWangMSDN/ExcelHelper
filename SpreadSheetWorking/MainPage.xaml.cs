@@ -44,13 +44,13 @@ namespace SpreadSheetWorking
                 Stream finalstream = await SpreadsheetHelper.filepathhelper();
             try
             {
-                SpreadsheetHelper.ReadDataFromExcel(finalstream, "Sheet1", "A2", "A8", mymember, memcoll);
+                SpreadsheetHelper.ReadDataFromExcel(finalstream, "Sheet1", "A2", "F29", memcoll);
             }
             catch(Exception ex)
             {
                 Debug.WriteLine(ex.Message.ToString());
             }
-               
+            var test = memcoll[2].Group;
         }
     }
 }

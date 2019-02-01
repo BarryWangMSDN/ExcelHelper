@@ -8,6 +8,16 @@ namespace SpreadSheetWorking.Model
 {
     public class MemberInfo
     {
+        public void emptymem()
+        {
+            username = null;
+            alias = null;
+            wsalias = null;
+            technology = null;
+            group = null;
+            vacationhour = 0;
+        }
+
         private string username;
 
         public string UserName

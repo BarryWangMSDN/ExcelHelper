@@ -273,16 +273,16 @@ namespace SpreadSheetWorking
         }
 
         //Responseale for loading data from a excel. Row 1 should be the Column name and the data should go from Row 2 
-        public static void ReadDataFromExcel(Stream stream, string worksheetName, string firstCellName, string lastCellName,MemberInfo member,ObservableCollection<MemberInfo> membercollection)
+        public static void ReadDataFromExcel(Stream stream, string worksheetName, string firstCellName, string lastCellName,ObservableCollection<MemberInfo> membercollection)
         {
-           
+            MemberInfo member = new MemberInfo();
             using (SpreadsheetDocument document = SpreadsheetDocument.Open(stream, false))
             {
                 IEnumerable<Sheet> sheets = document.WorkbookPart.Workbook.Descendants<Sheet>().Where(s => s.Name == worksheetName);
                 if (sheets.Count() == 0)
                 {
                     // The specified worksheet does not exist.
-                    return;
+                    // return;
                 }
                 WorksheetPart worksheetPart = (WorksheetPart)document.WorkbookPart.GetPartById(sheets.First().Id);
                 Worksheet worksheet = worksheetPart.Worksheet;
@@ -299,8 +299,6 @@ namespace SpreadSheetWorking
                    
                     var x=row.Descendants<Cell>().Count();
                     int i = 1;
-                   
-                   
                     foreach (Cell cell in row.Descendants<Cell>())
                     {
                         if (cell.DataType != null)
@@ -308,41 +306,38 @@ namespace SpreadSheetWorking
                             if (cell.DataType == CellValues.SharedString)
                             {
                                
-
-
-                                //    if (i == 1)
-                                //{
-                                //    // cell.DataType = CellValues.String;
-                                //    member.UserName = cell.InnerText;
-                                //}
-                                //if (i == 2)
-                                //{
-                                //    member.Alias = cell.InnerText;
-                                //}
-                                //if (i == 3)
-                                //{
-                                //    member.WsAlias = cell.InnerText;
-                                //}
-                                //if (i == 4)
-                                //{
-                                //    member.Technology = cell.InnerText;
-                                //}
-                                //if (i == 5)
-                                //{
-                                //    member.Group = cell.InnerText;
-                                //}
-                                //if (i == 6)
-                                //{
-                                //    member.VacationHour = Int32.Parse(cell.InnerText);
-                                //}
+                                if(i==1)
+                                {
+                                    member.UserName = GetTextfromCell(cell,document);
+                                } 
+                                else if(i==2)
+                                {
+                                    member.Alias = GetTextfromCell(cell, document);
+                                }
+                                else if (i == 3)
+                                {
+                                    member.WsAlias = GetTextfromCell(cell, document);
+                                }
+                                else if (i == 4)
+                                {
+                                    member.Technology = GetTextfromCell(cell, document);
+                                }
+                                else if (i == 5)
+                                {
+                                    member.Group = GetTextfromCell(cell, document);
+                                }
+                                else if (i == 6)
+                                {
+                                    member.VacationHour = Int32.Parse(GetTextfromCell(cell, document));
+                                }                             
                             }
                                 
                         }                           
-                        i++;
+                        i++;                      
                     }
-                    i = 0;
-                    membercollection.Add(member);         
+                    membercollection.Add(new MemberInfo() { UserName = member.UserName, Alias = member.Alias, WsAlias = member.WsAlias, Technology = member.Technology, Group = member.Group, VacationHour = member.VacationHour });
                 }
+             
             }
         }
     }
