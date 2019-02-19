@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpreadSheetWorking.View;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -54,9 +55,15 @@ namespace SpreadSheetWorking
                 {
                     //TODO: Load state from previously suspended application
                 }
+                ////  Display an extended splash screen if app was not previously running.
 
-                // Place the frame in the current Window
-                Window.Current.Content = rootFrame;
+                if (e.PreviousExecutionState != ApplicationExecutionState.Running)
+                {
+                    ExtendSplash extendedSplash = new ExtendSplash(e.SplashScreen);
+                    rootFrame.Content = extendedSplash;
+                }
+                    // Place the frame in the current Window
+                    Window.Current.Content = rootFrame;
             }
 
             if (e.PrelaunchActivated == false)

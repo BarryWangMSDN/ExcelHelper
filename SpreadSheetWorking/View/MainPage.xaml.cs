@@ -34,23 +34,23 @@ namespace SpreadSheetWorking
         }
 
 
-      
+
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
 
-                MemberInfo mymember = new MemberInfo();
-                ObservableCollection<MemberInfo> memcoll = new ObservableCollection<MemberInfo>();
-                Stream finalstream = await SpreadsheetHelper.filepathhelper();
+            MemberInfo mymember = new MemberInfo();
+            ObservableCollection<MemberInfo> memcoll = new ObservableCollection<MemberInfo>();
+
             try
             {
+                Stream finalstream = await SpreadsheetHelper.filepathhelper();
                 SpreadsheetHelper.ReadDataFromExcel(finalstream, "Sheet1", "A2", "F29", memcoll);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message.ToString());
             }
-            var test = memcoll[2].Group;
         }
     }
 }

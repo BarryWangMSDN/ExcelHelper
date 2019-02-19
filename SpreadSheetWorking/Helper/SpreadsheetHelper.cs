@@ -196,9 +196,9 @@ namespace SpreadSheetWorking
             openPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
             openPicker.FileTypeFilter.Add(".xlsx");
             StorageFile file = await openPicker.PickSingleFileAsync();
-            IRandomAccessStream streams=await file.OpenAsync(FileAccessMode.ReadWrite);
-            //StorageLibrary doclibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Pictures);
-            //string filepath = doclibrary.SaveFolder.Path;
+            IRandomAccessStream streams = await file.OpenAsync(FileAccessMode.ReadWrite);
+                //StorageLibrary doclibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Pictures);
+                //string filepath = doclibrary.SaveFolder.Path;
             return streams.AsStream();
         }
 
