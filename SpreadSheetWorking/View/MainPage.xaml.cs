@@ -1,5 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Packaging;
 using SpreadSheetWorking.Model;
+using SpreadSheetWorking.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,30 +28,38 @@ namespace SpreadSheetWorking
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private MainViewModel mymainvm;
+
+        public MainViewModel MyProperty
+        {
+            get { return mymainvm; }
+            set { mymainvm = value; }
+        }
+
         public MainPage()
         {
             this.InitializeComponent();
-            
+            MainViewModel mainvm = new MainViewModel();
+            mymainvm = mainvm;
         }
 
+      
 
+        //private async void Button_Click(object sender, RoutedEventArgs e)
+        //{
 
+        //    MemberInfo mymember = new MemberInfo();
+        //    ObservableCollection<MemberInfo> memcoll = new ObservableCollection<MemberInfo>();
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-            MemberInfo mymember = new MemberInfo();
-            ObservableCollection<MemberInfo> memcoll = new ObservableCollection<MemberInfo>();
-
-            try
-            {
-                Stream finalstream = await SpreadsheetHelper.filepathhelper();
-                SpreadsheetHelper.ReadDataFromExcel(finalstream, "Sheet1", "A2", "F29", memcoll);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message.ToString());
-            }
-        }
+        //    try
+        //    {
+        //        Stream finalstream = await SpreadsheetHelper.filepathhelper();
+        //        SpreadsheetHelper.ReadDataFromExcel(finalstream, "Sheet1", "A2", "F29", memcoll);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Debug.WriteLine(ex.Message.ToString());
+        //    }
+        //}
     }
 }
