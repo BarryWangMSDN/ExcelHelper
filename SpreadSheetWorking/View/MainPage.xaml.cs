@@ -1,5 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Packaging;
 using SpreadSheetWorking.Model;
+using SpreadSheetWorking.View;
 using SpreadSheetWorking.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,14 @@ namespace SpreadSheetWorking
             mymainvm = mainvm;
         }
 
-      
+        private void NavView_Loaded(object sender, RoutedEventArgs e)
+        {
+            // NavView doesn't load any page by default, so load home page.
+            NavView.SelectedItem = NavView.MenuItems[0];
+            ContentFrame.Navigate(typeof(DayOffListPage));
+        }
+
+
 
         //private async void Button_Click(object sender, RoutedEventArgs e)
         //{

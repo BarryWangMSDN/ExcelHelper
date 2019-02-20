@@ -9,7 +9,8 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <!--<Button Click="Button_Click" Width="300" Content="test" Height="200"/>-->
-    <NavigationView x:Name="NavView">
+    <NavigationView x:Name="NavView"
+                    Loaded="NavView_Loaded">
         <NavigationView.MenuItems>
             <NavigationViewItem Tag="Default" Content="Days Off" x:Name="LeftHour" />
         </NavigationView.MenuItems>
