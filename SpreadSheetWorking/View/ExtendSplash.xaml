@@ -5,10 +5,29 @@
     xmlns:local="using:SpreadSheetWorking.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
         <Rectangle x:Name="Gradient"/>
+        <controls:DropShadowPanel x:Name="MidText"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  BlurRadius="8"
+                                  OffsetY="2"
+                                  Opacity="0.8"
+                                  ShadowOpacity="0.3">
+            <animations:Implicit.HideAnimations>
+                <animations:TranslationAnimation Delay="0:0:0.5"                                             
+                                                 To="0,0,0"
+                                                 Duration="0:0:0.6" />
+            </animations:Implicit.HideAnimations>
+            <TextBlock FontSize="44"
+                       FontWeight="SemiLight"
+                       Foreground="White"
+                       Text="Engineering System" />
+        </controls:DropShadowPanel>
     </Grid>
 </Page>

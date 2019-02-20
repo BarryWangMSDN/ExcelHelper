@@ -1,10 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" 
-         xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" 
-         xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" 
-         xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-         IgnorableNamespaces="uap mp rescap"
-         >
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" IgnorableNamespaces="uap mp rescap">
   <Identity Name="be84c072-5565-4a89-a3e9-7e44471149ca" Publisher="CN=Administrator" Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="be84c072-5565-4a89-a3e9-7e44471149ca" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
@@ -21,9 +16,9 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="SpreadSheetWorking.App">
       <uap:VisualElements DisplayName="SpreadSheetWorking" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="SpreadSheetWorking" BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
         </uap:DefaultTile>
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="cyan" />
       </uap:VisualElements>
       <Extensions>
         <uap:Extension Category="windows.fileTypeAssociation">
