@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpreadSheetWorking.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +23,19 @@ namespace SpreadSheetWorking.View
     /// </summary>
     public sealed partial class DayOffListPage : Page
     {
+        private DaysOffListViewModel mydaysofflistvm;
+
+        public DaysOffListViewModel MyDasyOffListVM
+        {
+            get { return mydaysofflistvm; }
+            set { mydaysofflistvm = value; }
+        }
+
         public DayOffListPage()
         {
             this.InitializeComponent();
+            DaysOffListViewModel daysofflistvm = new DaysOffListViewModel();
+            mydaysofflistvm = daysofflistvm;
         }
     }
 }

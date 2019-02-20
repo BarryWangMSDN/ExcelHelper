@@ -31,7 +31,7 @@ namespace SpreadSheetWorking
     {
         private MainViewModel mymainvm;
 
-        public MainViewModel MyProperty
+        public MainViewModel MyMainVM
         {
             get { return mymainvm; }
             set { mymainvm = value; }
@@ -49,6 +49,14 @@ namespace SpreadSheetWorking
             // NavView doesn't load any page by default, so load home page.
             NavView.SelectedItem = NavView.MenuItems[0];
             ContentFrame.Navigate(typeof(DayOffListPage));
+        }
+
+        private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+        {
+            if (args.IsSettingsInvoked == true)
+            {
+                ContentFrame.Navigate(typeof(Settings), args.RecommendedNavigationTransitionInfo);
+            }
         }
 
 

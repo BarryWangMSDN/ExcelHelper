@@ -10,7 +10,8 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <!--<Button Click="Button_Click" Width="300" Content="test" Height="200"/>-->
     <NavigationView x:Name="NavView"
-                    Loaded="NavView_Loaded">
+                    Loaded="NavView_Loaded"
+                    ItemInvoked="NavView_ItemInvoked">
         <NavigationView.MenuItems>
             <NavigationViewItem Tag="Default" Content="Days Off" x:Name="LeftHour" />
         </NavigationView.MenuItems>
