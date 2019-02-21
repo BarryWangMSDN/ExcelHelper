@@ -22,9 +22,8 @@ namespace SpreadSheetWorking.ViewModel
         }
 
         public DaysOffListViewModel()
-        {
-            Settings settingpage = new Settings();
-            mymemlist = settingpage.MyMemCollection;
+        {          
+            mymemlist = Settings.MyMemCollection;
         }
 
 

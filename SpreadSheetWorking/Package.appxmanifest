@@ -35,6 +35,7 @@
     <Capability Name="internetClient" />
     <uap:Capability Name="documentsLibrary" />
     <uap:Capability Name="picturesLibrary" />
+    <uap:Capability Name="enterpriseAuthentication" />
     <rescap:Capability Name="broadFileSystemAccess" />
   </Capabilities>
 </Package>

@@ -1,4 +1,5 @@
-﻿using SpreadSheetWorking.Model;
+﻿using SpreadSheetWorking.Helper;
+using SpreadSheetWorking.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,9 +29,9 @@ namespace SpreadSheetWorking.View
         MemberInfo mymember = new MemberInfo();
         ObservableCollection<MemberInfo> memcoll = new ObservableCollection<MemberInfo>();
 
-        private ObservableCollection<MemberInfo> mycollection;
+        private static ObservableCollection<MemberInfo> mycollection;
 
-        public ObservableCollection<MemberInfo> MyMemCollection
+        public static ObservableCollection<MemberInfo> MyMemCollection
         {
             get { return mycollection; }
             set { mycollection = value; }
@@ -53,6 +54,11 @@ namespace SpreadSheetWorking.View
             {
                 Debug.WriteLine(ex.Message.ToString());
             }
+        }
+
+        private async void Write_DB(object sender, RoutedEventArgs e)
+        {
+            SqlDBHelper.insertcollection(memcoll);
         }
     }
 }

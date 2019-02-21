@@ -57,6 +57,15 @@ namespace SpreadSheetWorking
             {
                 ContentFrame.Navigate(typeof(Settings), args.RecommendedNavigationTransitionInfo);
             }
+            else if (args.InvokedItemContainer != null)
+            {
+                var navItemTag = args.InvokedItemContainer.Tag.ToString();
+                if(navItemTag=="Default")
+                {
+                    ContentFrame.Navigate(typeof(DayOffListPage), args.RecommendedNavigationTransitionInfo);
+                }
+            }
+
         }
 
 

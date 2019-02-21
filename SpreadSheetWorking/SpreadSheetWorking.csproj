@@ -119,6 +119,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helper\SqlDBHelper.cs" />
     <Compile Include="ViewModel\DaysOffListViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="View\DayOffListPage.xaml.cs">
