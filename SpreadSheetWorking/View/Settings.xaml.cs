@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -58,7 +59,10 @@ namespace SpreadSheetWorking.View
 
         private async void Write_DB(object sender, RoutedEventArgs e)
         {
-            SqlDBHelper.insertcollection(memcoll);
+            LoadingControl.IsLoading = true;
+            //await SqlDBHelper.insertcollection(memcoll);
+            await Task.Run(() => SqlDBHelper.insertcollection(memcoll));
+            LoadingControl.IsLoading = false;
         }
     }
 }

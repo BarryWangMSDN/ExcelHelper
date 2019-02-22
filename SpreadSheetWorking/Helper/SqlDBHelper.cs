@@ -47,27 +47,33 @@ namespace SpreadSheetWorking.Helper
 
         }
 
-        public static void insertcollection(ObservableCollection<MemberInfo> membercol)
+        public static async Task insertcollection(ObservableCollection<MemberInfo> membercol)
         {
             try
             {
                 using (SqlConnection conn = new SqlConnection())
                 {
                     conn.ConnectionString = connectionString;
-                    conn.Open();
-                    String sql = "insert into dbo.EngineerDaysOff(ChineseName, MSAlias, WSAlias, Technology, Group, Hour) " +
-                  "VALUES (@ChineseName, @MSAlias, @WSAlias, @Technology, @Group, @Hour) ";
+                    
+                    String sql = "insert into dbo.EngineerDaysOff(ChineseName, MSAlias, WSAlias, Technology, TeamGroup, Hour) " +
+                  "VALUES (@ChineseName, @MSAlias, @WSAlias, @Technology, @TeamGroup, @Hour) ";
                     SqlCommand cmd = new SqlCommand(sql, conn);
-                   
+                    cmd.Parameters.Add("@ChineseName", System.Data.SqlDbType.NVarChar, 50);
+                    cmd.Parameters.Add("@MSAlias", System.Data.SqlDbType.NChar, 10);
+                    cmd.Parameters.Add("@WSAlias", System.Data.SqlDbType.NChar, 10);
+                    cmd.Parameters.Add("@Technology", System.Data.SqlDbType.NVarChar, 50);
+                    cmd.Parameters.Add("@TeamGroup", System.Data.SqlDbType.NVarChar, 50);
+                    cmd.Parameters.Add("@Hour", System.Data.SqlDbType.Int, 50);
+                    conn.Open();
                     foreach (var member in membercol)
                     {
-                        cmd.Parameters.Add("@ChineseName", System.Data.SqlDbType.NVarChar, 50).Value = member.UserName;
-                        cmd.Parameters.Add("@MSAlias", System.Data.SqlDbType.NChar, 10).Value = member.Alias;
-                        cmd.Parameters.Add("@WSAlias", System.Data.SqlDbType.NChar, 10).Value = member.WsAlias;
-                        cmd.Parameters.Add("@Technology", System.Data.SqlDbType.NVarChar, 50).Value = member.Technology;
-                        cmd.Parameters.Add("@Group", System.Data.SqlDbType.NVarChar, 50).Value = member.Group;
-                        cmd.Parameters.Add("@Hour", System.Data.SqlDbType.Int, 50).Value = member.VacationHour;
-                        cmd.ExecuteNonQuery();
+                       cmd.Parameters["@ChineseName"].Value = member.UserName;
+                       cmd.Parameters["@MSAlias"].Value = member.Alias;
+                       cmd.Parameters["@WSAlias"].Value = member.WsAlias;
+                       cmd.Parameters["@Technology"].Value = member.Technology;
+                       cmd.Parameters["@TeamGroup"].Value = member.Group;
+                       cmd.Parameters["@Hour"].Value = member.VacationHour;
+                       await cmd.ExecuteNonQueryAsync();
                     }
                     conn.Close();
                 }
