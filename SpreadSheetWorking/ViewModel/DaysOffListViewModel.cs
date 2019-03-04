@@ -1,4 +1,5 @@
-﻿using SpreadSheetWorking.Model;
+﻿using SpreadSheetWorking.Helper;
+using SpreadSheetWorking.Model;
 using SpreadSheetWorking.View;
 using System;
 using System.Collections.Generic;
@@ -22,8 +23,9 @@ namespace SpreadSheetWorking.ViewModel
         }
 
         public DaysOffListViewModel()
-        {          
-            mymemlist = Settings.MyMemCollection;
+        {
+            //mymemlist = Settings.MyMemCollection;
+            mymemlist = SqlDBHelper.CommonMemList;
         }
 
 

@@ -20,6 +20,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Graphics.Canvas.Effects;
 using Windows.UI.Xaml.Hosting;
+using SpreadSheetWorking.Helper;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -103,21 +104,21 @@ namespace SpreadSheetWorking.View
             ElementCompositionPreview.SetElementChildVisual(Gradient, _backgroundVisual);
 
             var gradientStop1OffsetAnimation = compositor.CreateScalarKeyFrameAnimation();
-            gradientStop1OffsetAnimation.Duration = TimeSpan.FromSeconds(0.5);
-            gradientStop1OffsetAnimation.DelayTime = TimeSpan.FromSeconds(1.5);
+            gradientStop1OffsetAnimation.Duration = TimeSpan.FromSeconds(1);
+            gradientStop1OffsetAnimation.DelayTime = TimeSpan.FromSeconds(1);
             gradientStop1OffsetAnimation.InsertKeyFrame(1.0f, 0.25f);
             gradientStop1.StartAnimation(nameof(gradientStop1.Offset), gradientStop1OffsetAnimation);
 
             var gradientStop2OffsetAnimation = compositor.CreateScalarKeyFrameAnimation();
-            gradientStop2OffsetAnimation.Duration = TimeSpan.FromSeconds(0.5);
-            gradientStop2OffsetAnimation.DelayTime = TimeSpan.FromSeconds(1.5);
+            gradientStop2OffsetAnimation.Duration = TimeSpan.FromSeconds(1);
+            gradientStop2OffsetAnimation.DelayTime = TimeSpan.FromSeconds(1);
             gradientStop2OffsetAnimation.InsertKeyFrame(1.0f, 1.0f);
             gradientStop2.StartAnimation(nameof(gradientStop1.Offset), gradientStop2OffsetAnimation);
 
 
             var gradientStop3Animation = compositor.CreateColorKeyFrameAnimation();
             gradientStop3Animation.Duration = TimeSpan.FromSeconds(1.5);
-            gradientStop3Animation.DelayTime = TimeSpan.FromSeconds(1.5);
+            gradientStop3Animation.DelayTime = TimeSpan.FromSeconds(2);
             gradientStop3Animation.Direction = Windows.UI.Composition.AnimationDirection.Alternate;
             gradientStop3Animation.InsertKeyFrame(1.0f, GradientStop3StartColor);
             gradientStop3.StartAnimation(nameof(gradientStop1.Color), gradientStop3Animation);
@@ -147,10 +148,10 @@ namespace SpreadSheetWorking.View
                 // Your UI update code goes here!
                 // Create a Frame to act as the navigation context
                 rootFrame = new Frame();
-                // Complete app setup operations here...
-                //Create Timer Date
-                //In my real app it should be used to load the data I need. May changed here
-                 await Task.Delay(3000);
+                  // Complete app setup operations here...
+                  //Create Timer Date
+                  //In my real app it should be used to load the data I need. May changed here
+                  SqlDBHelper.CommonMemList = SqlDBHelper.QueryDataInDB();
                  // Navigate to mainpage
                  rootFrame.Navigate(typeof(MainPage));
                  // Place the frame in the current Window

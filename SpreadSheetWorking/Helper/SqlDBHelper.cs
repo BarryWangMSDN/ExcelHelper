@@ -22,29 +22,56 @@ namespace SpreadSheetWorking.Helper
 
         public static string ConnectionString { get => connectionString; set => connectionString = value; }
 
-        public static void QueryDataInDB()
+        private static ObservableCollection<MemberInfo> commonmemlist;
+
+        public static ObservableCollection<MemberInfo> CommonMemList
         {
+            get { return commonmemlist; }
+            set { commonmemlist = value; }
+        }
+
+
+        public static ObservableCollection<MemberInfo> QueryDataInDB()
+        {
+            const string GetMembersQuery = "select ChineseName, MSAlias, WSAlias, Technology, TeamGroup, Hour" +
+                                           " from dbo.EngineerDaysOff ";
+            var members = new ObservableCollection<MemberInfo>();
             try
             {
                 using (SqlConnection conn = new SqlConnection())
                 {
                     conn.ConnectionString = connectionString;
                     conn.Open();
-                    String sql = "select * from SalesLT.Address";
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-                    SqlDataReader dr = cmd.ExecuteReader();
-                    while (dr.Read())
+                    if (conn.State == System.Data.ConnectionState.Open)
                     {
-                        
+                        using (SqlCommand cmd = conn.CreateCommand())
+                        {
+                            cmd.CommandText = GetMembersQuery;
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                while(reader.Read())
+                                {
+                                    var memberinfo = new MemberInfo();
+                                    memberinfo.UserName = reader.GetString(0);
+                                    memberinfo.Alias = reader.GetString(1);
+                                    memberinfo.WsAlias = reader.GetString(2);
+                                    memberinfo.Technology = reader.GetString(3);
+                                    memberinfo.Group = reader.GetString(4);
+                                    memberinfo.VacationHour = reader.GetInt32(5);
+                                    members.Add(memberinfo);
+                                }
+                            }
+                        }
                     }
-                    conn.Close();
+                 
                 }
+                return members;
             }
-            catch (Exception ex)
+            catch (Exception eSql)
             {
-                Debug.WriteLine(ex);
+                Debug.WriteLine("Exception: " + eSql.Message);
             }
-
+            return null;
         }
 
         public static async Task insertcollection(ObservableCollection<MemberInfo> membercol)
@@ -83,6 +110,35 @@ namespace SpreadSheetWorking.Helper
                 Debug.WriteLine(ex);
             }
         }
+
+        public static void DeleteOneItemFromDB(String alias)
+        {
+             string DeleteMemberQuery = "delete from dbo.EngineerDaysOff" +
+                "where MSAlias='" + alias + "'";
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = connectionString;
+                    conn.Open();
+                    if (conn.State == System.Data.ConnectionState.Open)
+                    {
+                        using (SqlCommand cmd = conn.CreateCommand())
+                        {
+                            cmd.CommandText = DeleteMemberQuery;
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                }              
+            }
+            catch (Exception eSql)
+            {
+                Debug.WriteLine("Exception: " + eSql.Message);
+            }         
+        }
+
+        
 
     }
 }

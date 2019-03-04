@@ -60,8 +60,8 @@ namespace SpreadSheetWorking.View
         private async void Write_DB(object sender, RoutedEventArgs e)
         {
             LoadingControl.IsLoading = true;
-            //await SqlDBHelper.insertcollection(memcoll);
-            await Task.Run(() => SqlDBHelper.insertcollection(memcoll));
+          //  await SqlDBHelper.insertcollection(memcoll);
+           await Task.Run(() => SqlDBHelper.insertcollection(memcoll));
             LoadingControl.IsLoading = false;
         }
     }
