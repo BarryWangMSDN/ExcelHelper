@@ -15,9 +15,22 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <controls:DataGrid x:Name="memdatagrid" 
+                           HeadersVisibility="Column"
+                           CanUserReorderColumns="True" 
+                           CanUserResizeColumns="True"
+                           AlternatingRowBackground="LightGray"
                            Grid.Column="0"
-                           AutoGenerateColumns="True"
+                           AutoGenerateColumns="False"                         
                            ItemsSource="{x:Bind MyDasyOffListVM.MyMemberList}">
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn 
+                    Header="ChineseName"
+                    Width="SizeToHeader"
+                    Binding="{Binding UserName}"
+                    FontSize="20">
+                </controls:DataGridTextColumn>
+                
+            </controls:DataGrid.Columns>
         </controls:DataGrid>
         <StackPanel x:Name="SearchForm"
                     Grid.Column="1">
@@ -32,7 +45,7 @@
                     <x:String>WA</x:String>
                 </ComboBox>
             </RelativePanel>
-            <TextBox x:Name="ZipCode" PlaceholderText="Zip Code" Margin="0,24,0,0" MaxLength="6" Width="100" HorizontalAlignment="Left" InputScope="Number" />
+            <!--<TextBox x:Name="ZipCode" PlaceholderText="Zip Code" Margin="0,24,0,0" MaxLength="6" Width="100" HorizontalAlignment="Left" InputScope="Number" />-->
             <StackPanel Orientation="Horizontal">
                 <Button Content="Request Leave" Margin="0,24" />
             </StackPanel>

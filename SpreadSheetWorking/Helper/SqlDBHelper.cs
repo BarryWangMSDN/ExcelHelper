@@ -111,7 +111,7 @@ namespace SpreadSheetWorking.Helper
             }
         }
 
-        public static void DeleteOneItemFromDB(String alias)
+        public static void DeleteItemFromDB(string alias)
         {
              string DeleteMemberQuery = "delete from dbo.EngineerDaysOff" +
                 "where MSAlias='" + alias + "'";
@@ -138,7 +138,39 @@ namespace SpreadSheetWorking.Helper
             }         
         }
 
-        
+        public static void DeleteItemFromMemory(string alias)
+        {
+            var found = commonmemlist.Where(s => s.Alias == alias);
+            foreach (var item in found)
+            commonmemlist.Remove(item);
+        }
+
+        public static void UpdateItemFromDB(string alias,int hour)
+        {
+            string UpdateHourQuery= "Update dbo.EngineerDaysOff set Hour=(Hour+"+hour+")"+
+                "where MSAlias='" + alias + "'";
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = connectionString;
+                    conn.Open();
+                    if (conn.State == System.Data.ConnectionState.Open)
+                    {
+                        using (SqlCommand cmd = conn.CreateCommand())
+                        {
+                            cmd.CommandText = UpdateHourQuery;
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                }
+            }
+            catch (Exception eSql)
+            {
+                Debug.WriteLine("Exception: " + eSql.Message);
+            }
+        }
 
     }
 }
