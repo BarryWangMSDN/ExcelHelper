@@ -4,6 +4,7 @@ A internal tool to store engineer vacation hours.
 Some helper class for personal usage:
 1. Excel reader
 2. SQL Server reader/writer
+3. Azure database intergration 
 
 
 Roadmap:
