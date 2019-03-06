@@ -4,6 +4,7 @@ using SpreadSheetWorking.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,14 +16,16 @@ namespace SpreadSheetWorking.ViewModel
 {
   
 
-    public class DaysOffListViewModel
+    public class DaysOffListViewModel:INotifyPropertyChanged
     {
         private ObservableCollection<MemberInfo> mymemlist;
 
         public ObservableCollection<MemberInfo> MyMemberList
         {
             get { return mymemlist; }
-            set { mymemlist = value; }
+            set { mymemlist = value;
+                NotifyPropertyChanged("MyMemberList");
+            }
         }
 
         private ObservableCollection<MemberInfo> basiclist;
@@ -32,9 +35,27 @@ namespace SpreadSheetWorking.ViewModel
             get { return basiclist; }
             set { basiclist = value; }
         }
- 
+
+
+        private ObservableCollection<MemberInfo> templist;
+
+        public ObservableCollection<MemberInfo> TempList
+        {
+            get { return templist; }
+            set { templist = value; }
+        }
 
         private List<MemberInfo> tempdataset;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
 
         public List<MemberInfo> TempDataset
         {
@@ -45,9 +66,12 @@ namespace SpreadSheetWorking.ViewModel
 
         public DaysOffListViewModel()
         {          
-            mymemlist = SqlDBHelper.CommonMemList;
-            
-
+            basiclist = SqlDBHelper.CommonMemList;
+            mymemlist = new ObservableCollection<MemberInfo>();
+            foreach (var item in basiclist)
+            {
+                mymemlist.Add(item);
+            }         
         }
 
         public void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
@@ -62,7 +86,23 @@ namespace SpreadSheetWorking.ViewModel
             }
             else
             {
-                             
+                if(args.QueryText!=null)
+                {
+                    var query = from item in basiclist
+                                where item.Alias.Contains(args.QueryText)
+                                select item;
+                    mymemlist.Clear();
+                    foreach (var item in query)
+                    {
+                        mymemlist.Add(item);
+                    }
+                }
+                else
+                {
+                    mymemlist.Clear();
+                    mymemlist = basiclist;
+                }
+               
             }
         }
 
@@ -78,7 +118,7 @@ namespace SpreadSheetWorking.ViewModel
                              
 
             }
-           
+          
         }
 
     }

@@ -23,7 +23,7 @@
                            AlternatingRowBackground="Gray"
                            Grid.Column="0"                         
                            AutoGenerateColumns="False"  
-                           ItemsSource="{x:Bind MyDasyOffListVM.MyMemberList}"
+                           ItemsSource="{x:Bind MyDasyOffListVM.MyMemberList}"                          
                            >
                 <controls:DataGrid.Columns>
                     <controls:DataGridTextColumn 
@@ -63,17 +63,17 @@
        
         <StackPanel x:Name="SearchForm"
                     Grid.Column="1">
-            <AutoSuggestBox QueryIcon="Find" Width="400" Margin="0,24,0,0" HorizontalAlignment="Left" QuerySubmitted="{x:Bind MyDasyOffListVM.AutoSuggestBox_QuerySubmitted}"/>
-            <TextBox x:Name="Name" Header= "Name" Margin="0,24,0,0" MaxLength="32" Width="400" HorizontalAlignment="Left" InputScope="PersonalFullName"/>
+            <AutoSuggestBox QueryIcon="Find" Width="200" Margin="0,24,0,0" HorizontalAlignment="Right" QuerySubmitted="{x:Bind MyDasyOffListVM.AutoSuggestBox_QuerySubmitted}"/>
+            <!--<TextBox x:Name="Name" Header= "Name" Margin="0,24,0,0" MaxLength="32" Width="400" HorizontalAlignment="Left" InputScope="PersonalFullName"/>
             <TextBox x:Name="Msalias" Header="MS Alias" Margin="0,24,0,0" MaxLength="15" Width="400" HorizontalAlignment="Left" InputScope="TelephoneNumber" />
-            <TextBox x:Name="Wsalias" Header="WS Alias" Margin="0,24,0,0" MaxLength="50" Width="400" HorizontalAlignment="Left" InputScope="EmailNameOrAddress" />
-            <TextBox x:Name="VecationHour" Header="VecationHour" PlaceholderText="Hour" Margin="0,24,0,0" MaxLength="50" Width="400" HorizontalAlignment="Left" InputScope="Number" />
-            <RelativePanel>
+            <TextBox x:Name="Wsalias" Header="WS Alias" Margin="0,24,0,0" MaxLength="50" Width="400" HorizontalAlignment="Left" InputScope="EmailNameOrAddress" />-->
+            <TextBox x:Name="VecationHour" Header="VecationHour" PlaceholderText="Hour" Margin="0,24,0,0" MaxLength="50" Width="200" HorizontalAlignment="Right" InputScope="Number" />
+            <!--<RelativePanel>
                 <TextBox x:Name="City" PlaceholderText="City" Margin="0,24,0,0" MaxLength="50" Width="200" HorizontalAlignment="Left" InputScope="EmailNameOrAddress" />
                 
-            </RelativePanel>
+            </RelativePanel>-->
             <!--<TextBox x:Name="ZipCode" PlaceholderText="Zip Code" Margin="0,24,0,0" MaxLength="6" Width="100" HorizontalAlignment="Left" InputScope="Number" />-->
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Content="Request Leave" Margin="0,24" />
             </StackPanel>
         </StackPanel>
