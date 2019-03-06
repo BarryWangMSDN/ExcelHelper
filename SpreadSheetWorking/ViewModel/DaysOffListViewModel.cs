@@ -32,10 +32,11 @@ namespace SpreadSheetWorking.ViewModel
             get { return basiclist; }
             set { basiclist = value; }
         }
+ 
 
-        private List<string> tempdataset;
+        private List<MemberInfo> tempdataset;
 
-        public List<string> TempDataset
+        public List<MemberInfo> TempDataset
         {
             get { return tempdataset; }
             set { tempdataset = value; }
@@ -43,14 +44,10 @@ namespace SpreadSheetWorking.ViewModel
 
 
         public DaysOffListViewModel()
-        {
+        {          
             mymemlist = SqlDBHelper.CommonMemList;
-            basiclist = mymemlist;
-            tempdataset = new List<string>();
-            foreach (var i in mymemlist)
-            {
-                tempdataset.Add(i.UserName);
-            };
+            
+
         }
 
         public void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
@@ -65,9 +62,7 @@ namespace SpreadSheetWorking.ViewModel
             }
             else
             {
-                var querydata = args.QueryText;
-                var result = mymemlist.Where(c => c.Alias == querydata);
-                // Use args.QueryText to determine what to do.
+                             
             }
         }
 
@@ -80,7 +75,7 @@ namespace SpreadSheetWorking.ViewModel
             {
                 //Set the ItemsSource to be your filtered dataset
                 //sender.ItemsSource = mymemlist;                        
-                sender.ItemsSource = tempdataset;               
+                             
 
             }
            

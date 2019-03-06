@@ -12,6 +12,7 @@ namespace SpreadSheetWorking.Helper
 {
     public class SqlDBHelper
     { 
+       
         // Connection string for using Windows Authentication.
         private static string connectionString =
             @"Server=tcp:barryengineering.database.windows.net,1433;Initial Catalog=EngineeringDB;Persist Security Info=False;User ID=azureuser;Password=Azure1234567;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";

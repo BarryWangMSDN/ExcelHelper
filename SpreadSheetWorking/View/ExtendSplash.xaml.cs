@@ -151,7 +151,7 @@ namespace SpreadSheetWorking.View
                   // Complete app setup operations here...
                   //Create Timer Date
                   //In my real app it should be used to load the data I need. May changed here
-                  SqlDBHelper.CommonMemList = SqlDBHelper.QueryDataInDB();
+                 SqlDBHelper.CommonMemList = SqlDBHelper.QueryDataInDB();
                  // Navigate to mainpage
                  rootFrame.Navigate(typeof(MainPage));
                  // Place the frame in the current Window
