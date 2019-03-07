@@ -63,11 +63,14 @@
        
         <StackPanel x:Name="SearchForm"
                     Grid.Column="1">
-            <AutoSuggestBox QueryIcon="Find" Width="200" Margin="0,24,0,0" HorizontalAlignment="Right" QuerySubmitted="{x:Bind MyDasyOffListVM.AutoSuggestBox_QuerySubmitted}"/>
+            <AutoSuggestBox QueryIcon="Find" Width="200" Margin="-2,24,0,0" HorizontalAlignment="Right" QuerySubmitted="{x:Bind MyDasyOffListVM.AutoSuggestBox_QuerySubmitted}"/>
             <!--<TextBox x:Name="Name" Header= "Name" Margin="0,24,0,0" MaxLength="32" Width="400" HorizontalAlignment="Left" InputScope="PersonalFullName"/>
             <TextBox x:Name="Msalias" Header="MS Alias" Margin="0,24,0,0" MaxLength="15" Width="400" HorizontalAlignment="Left" InputScope="TelephoneNumber" />
             <TextBox x:Name="Wsalias" Header="WS Alias" Margin="0,24,0,0" MaxLength="50" Width="400" HorizontalAlignment="Left" InputScope="EmailNameOrAddress" />-->
-            <TextBox x:Name="VecationHour" Header="VecationHour" PlaceholderText="Hour" Margin="0,24,0,0" MaxLength="50" Width="200" HorizontalAlignment="Right" InputScope="Number" />
+            <TextBox x:Name="LeftHour" Header="Left Hour" PlaceholderText="Hour" Margin="0,24,0,0" MaxLength="50" Width="200" HorizontalAlignment="Right" InputScope="Number"/>
+            <TextBox x:Name="RequestHour" Header="VecationHour" PlaceholderText="Hour" Margin="0,48,0,0" MaxLength="50" Width="200" HorizontalAlignment="Right" InputScope="Number" />
+            
+            
             <!--<RelativePanel>
                 <TextBox x:Name="City" PlaceholderText="City" Margin="0,24,0,0" MaxLength="50" Width="200" HorizontalAlignment="Left" InputScope="EmailNameOrAddress" />
                 
