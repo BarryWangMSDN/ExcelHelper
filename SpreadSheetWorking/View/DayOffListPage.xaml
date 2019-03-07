@@ -62,13 +62,15 @@
         </controls:DropShadowPanel>
        
         <StackPanel x:Name="SearchForm"
-                    Grid.Column="1">
-            <AutoSuggestBox QueryIcon="Find" Width="200" Margin="-2,24,0,0" HorizontalAlignment="Right" QuerySubmitted="{x:Bind MyDasyOffListVM.AutoSuggestBox_QuerySubmitted}"/>
+                    Grid.Column="1"
+                    Width="300"
+                    MaxWidth="400">
+            <AutoSuggestBox QueryIcon="Find" Width="250" Margin="0,24,0,0" HorizontalAlignment="Left" QuerySubmitted="{x:Bind MyDasyOffListVM.AutoSuggestBox_QuerySubmitted}"/>
             <!--<TextBox x:Name="Name" Header= "Name" Margin="0,24,0,0" MaxLength="32" Width="400" HorizontalAlignment="Left" InputScope="PersonalFullName"/>
             <TextBox x:Name="Msalias" Header="MS Alias" Margin="0,24,0,0" MaxLength="15" Width="400" HorizontalAlignment="Left" InputScope="TelephoneNumber" />
             <TextBox x:Name="Wsalias" Header="WS Alias" Margin="0,24,0,0" MaxLength="50" Width="400" HorizontalAlignment="Left" InputScope="EmailNameOrAddress" />-->
-            <TextBox x:Name="LeftHour" Header="Left Hour" PlaceholderText="Hour" Margin="0,24,0,0" MaxLength="50" Width="200" HorizontalAlignment="Right" InputScope="Number"/>
-            <TextBox x:Name="RequestHour" Header="VecationHour" PlaceholderText="Hour" Margin="0,48,0,0" MaxLength="50" Width="200" HorizontalAlignment="Right" InputScope="Number" />
+            <TextBlock x:Name="lefthourlabel" Text="LeftHours:" HorizontalAlignment="Left" Margin="0,24,0,0"/>
+            <TextBox x:Name="RequestHour" Header="VecationHour" PlaceholderText="Hour" Margin="0,48,0,0" MaxLength="50" Width="250" HorizontalAlignment="Left" InputScope="Number" />
             
             
             <!--<RelativePanel>
@@ -76,7 +78,7 @@
                 
             </RelativePanel>-->
             <!--<TextBox x:Name="ZipCode" PlaceholderText="Zip Code" Margin="0,24,0,0" MaxLength="6" Width="100" HorizontalAlignment="Left" InputScope="Number" />-->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                 <Button Content="Request Leave" Margin="0,24" />
             </StackPanel>
         </StackPanel>
