@@ -7,22 +7,28 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{StaticResource SystemControlBaseMediumLowAcrylicWindowMediumBrush}">
   
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*" MaxWidth="1000"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
         <controls:DropShadowPanel BlurRadius="4.0" ShadowOpacity="0.70"
-                          OffsetX="5.0" OffsetY="5.0" Color="LightGray">
-            <controls:DataGrid x:Name="memdatagrid" 
+                          OffsetX="-7.0" OffsetY="5.0" Color="LightSlateGray" >
+            <controls:DataGrid x:Name="memdatagrid"                               
                            HeadersVisibility="Column"
                            CanUserReorderColumns="True" 
                            CanUserResizeColumns="True"  
                            AlternatingRowBackground="Gray"
-                           Grid.Column="0"                         
+                           Grid.Column="0"
+                           Grid.RowSpan="1"
                            AutoGenerateColumns="False"  
+                           Background="{StaticResource SystemControlBaseMediumLowAcrylicWindowMediumBrush}"
                            ItemsSource="{x:Bind MyDasyOffListVM.MyMemberList}"                          
                            >
                 <controls:DataGrid.Columns>
@@ -60,25 +66,28 @@
                 </controls:DataGrid.Columns>
             </controls:DataGrid>
         </controls:DropShadowPanel>
-       
-        <StackPanel x:Name="SearchForm"
-                    Grid.Column="1">
-            <AutoSuggestBox QueryIcon="Find" Width="200" Margin="-2,24,0,0" HorizontalAlignment="Right" QuerySubmitted="{x:Bind MyDasyOffListVM.AutoSuggestBox_QuerySubmitted}"/>
+
+        <RelativePanel x:Name="searchform" Grid.Column="1">
+            <AutoSuggestBox x:Name="querybox" QueryIcon="Find" Width="200" Margin="0,24,0,0" QuerySubmitted="{x:Bind MyDasyOffListVM.AutoSuggestBox_QuerySubmitted}"/>
+            <TextBox x:Name="LeftHour" RelativePanel.RightOf="querybox" Header="HoursLeft" Margin="20,0,0,0" PlaceholderText="Hour"  MaxLength="50" Width="80" InputScope="Number"/>
+            <TextBox x:Name="RequestHour" RelativePanel.RightOf="LeftHour"  Header="VecationHour" Margin="20,0,0,0" PlaceholderText="Hour"  MaxLength="50" Width="100"  InputScope="Number" />
+            <Button RelativePanel.Below="querybox" Content="Request"  Margin="0,24,0,0" />
+        </RelativePanel>
+        
+        
+        
+           
             <!--<TextBox x:Name="Name" Header= "Name" Margin="0,24,0,0" MaxLength="32" Width="400" HorizontalAlignment="Left" InputScope="PersonalFullName"/>
             <TextBox x:Name="Msalias" Header="MS Alias" Margin="0,24,0,0" MaxLength="15" Width="400" HorizontalAlignment="Left" InputScope="TelephoneNumber" />
             <TextBox x:Name="Wsalias" Header="WS Alias" Margin="0,24,0,0" MaxLength="50" Width="400" HorizontalAlignment="Left" InputScope="EmailNameOrAddress" />-->
-            <TextBox x:Name="LeftHour" Header="Left Hour" PlaceholderText="Hour" Margin="0,24,0,0" MaxLength="50" Width="200" HorizontalAlignment="Right" InputScope="Number"/>
-            <TextBox x:Name="RequestHour" Header="VecationHour" PlaceholderText="Hour" Margin="0,48,0,0" MaxLength="50" Width="200" HorizontalAlignment="Right" InputScope="Number" />
-            
-            
+          
+           
             <!--<RelativePanel>
                 <TextBox x:Name="City" PlaceholderText="City" Margin="0,24,0,0" MaxLength="50" Width="200" HorizontalAlignment="Left" InputScope="EmailNameOrAddress" />
                 
             </RelativePanel>-->
             <!--<TextBox x:Name="ZipCode" PlaceholderText="Zip Code" Margin="0,24,0,0" MaxLength="6" Width="100" HorizontalAlignment="Left" InputScope="Number" />-->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Request Leave" Margin="0,24" />
-            </StackPanel>
-        </StackPanel>
+          
+        
     </Grid>
 </Page>
