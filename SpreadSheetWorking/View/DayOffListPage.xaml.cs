@@ -1,4 +1,5 @@
-﻿using SpreadSheetWorking.ViewModel;
+﻿using Microsoft.Toolkit.Uwp.UI.Controls;
+using SpreadSheetWorking.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -33,9 +34,12 @@ namespace SpreadSheetWorking.View
 
         public DayOffListPage()
         {
-            this.InitializeComponent();
+            this.InitializeComponent();          
             DaysOffListViewModel daysofflistvm = new DaysOffListViewModel();
             mydaysofflistvm = daysofflistvm;
         }
+
+
+      
     }
 }

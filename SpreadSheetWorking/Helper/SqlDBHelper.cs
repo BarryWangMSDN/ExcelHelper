@@ -148,7 +148,7 @@ namespace SpreadSheetWorking.Helper
 
         public static void UpdateItemFromDB(string alias,int hour)
         {
-            string UpdateHourQuery= "Update dbo.EngineerDaysOff set Hour=(Hour+"+hour+")"+
+            string UpdateHourQuery= "Update dbo.EngineerDaysOff set Hour=(Hour-"+hour+")"+
                 "where MSAlias='" + alias + "'";
             try
             {
@@ -171,6 +171,11 @@ namespace SpreadSheetWorking.Helper
             {
                 Debug.WriteLine("Exception: " + eSql.Message);
             }
+        }
+
+        public static void UpdateItemFromCollection(int index, int hour,ObservableCollection<MemberInfo> col)
+        {
+            col[index].VacationHour -= hour;                    
         }
 
     }

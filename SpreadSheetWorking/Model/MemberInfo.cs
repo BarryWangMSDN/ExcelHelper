@@ -1,13 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SpreadSheetWorking.Model
 {
-    public class MemberInfo
+    public class MemberInfo:INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+
+        public void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            // Raise the PropertyChanged event, passing the name of the property whose value has changed.
+            this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public void emptymem()
         {
             username = null;
@@ -23,7 +33,9 @@ namespace SpreadSheetWorking.Model
         public string UserName
         {
             get { return username; }
-            set { username = value; }
+            set { username = value;
+                OnPropertyChanged();
+            }
         }
 
         private string alias;
@@ -31,7 +43,9 @@ namespace SpreadSheetWorking.Model
         public string Alias
         {
             get { return alias; }
-            set { alias = value; }
+            set { alias = value;
+                OnPropertyChanged();
+            }
         }
 
         private string wsalias;
@@ -39,7 +53,9 @@ namespace SpreadSheetWorking.Model
         public string WsAlias
         {
             get { return wsalias; }
-            set { wsalias = value; }
+            set { wsalias = value;
+                OnPropertyChanged();
+            }
         }
 
         private string technology;
@@ -47,7 +63,9 @@ namespace SpreadSheetWorking.Model
         public string Technology
         {
             get { return technology; }
-            set { technology = value; }
+            set { technology = value;
+                OnPropertyChanged();
+            }
         }
 
         private string group;
@@ -55,7 +73,9 @@ namespace SpreadSheetWorking.Model
         public string Group
         {
             get { return group; }
-            set { group = value; }
+            set { group = value;
+                OnPropertyChanged();
+            }
         }
 
         private int vacationhour;
@@ -63,7 +83,9 @@ namespace SpreadSheetWorking.Model
         public int VacationHour
         {
             get { return vacationhour; }
-            set { vacationhour = value; }
+            set { vacationhour = value;
+                OnPropertyChanged();
+            }
         }
 
     }

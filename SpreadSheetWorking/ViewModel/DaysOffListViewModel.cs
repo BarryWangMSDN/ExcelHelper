@@ -1,13 +1,17 @@
-﻿using SpreadSheetWorking.Helper;
+﻿using Microsoft.Toolkit.Uwp.UI.Controls;
+using SpreadSheetWorking.Helper;
 using SpreadSheetWorking.Model;
 using SpreadSheetWorking.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
@@ -18,13 +22,20 @@ namespace SpreadSheetWorking.ViewModel
 
     public class DaysOffListViewModel:INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+
+        public void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            // Raise the PropertyChanged event, passing the name of the property whose value has changed.
+            this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         private ObservableCollection<MemberInfo> mymemlist;
 
         public ObservableCollection<MemberInfo> MyMemberList
         {
             get { return mymemlist; }
-            set { mymemlist = value;
-                NotifyPropertyChanged("MyMemberList");
+            set { mymemlist = value;         
             }
         }
 
@@ -45,17 +56,41 @@ namespace SpreadSheetWorking.ViewModel
             set { templist = value; }
         }
 
-        private List<MemberInfo> tempdataset;
+        private string requesthour;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void NotifyPropertyChanged(String info)
+        public string RequestHour
         {
-            if (PropertyChanged != null)
+            get { return requesthour; }
+            set
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
+                requesthour = value;
+                this.OnPropertyChanged();
             }
         }
+
+        //private string hoursleft;
+
+        //public string HoursLeft
+        //{
+        //    get { return hoursleft; }
+        //    set { hoursleft = value;
+        //        this.OnPropertyChanged();
+        //    }
+        //}
+
+        private int currentindex;
+
+        public int CurrentIndex
+        {
+            get { return currentindex; }
+            set { currentindex = value; }
+        }
+
+
+
+        private List<MemberInfo> tempdataset;
+
+        
 
         public List<MemberInfo> TempDataset
         {
@@ -65,13 +100,15 @@ namespace SpreadSheetWorking.ViewModel
 
 
         public DaysOffListViewModel()
-        {          
+        {
+            
             basiclist = SqlDBHelper.CommonMemList;
             mymemlist = new ObservableCollection<MemberInfo>();
             foreach (var item in basiclist)
             {
                 mymemlist.Add(item);
-            }         
+            }
+            requesthour = "0";
         }
 
         public void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
@@ -106,7 +143,7 @@ namespace SpreadSheetWorking.ViewModel
             }
         }
 
-        private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        public void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
             // Only get results when it was a user typing,
             // otherwise assume the value got filled in by TextMemberPath
@@ -121,5 +158,45 @@ namespace SpreadSheetWorking.ViewModel
           
         }
 
+        public void Memdatagrid_SelectionChanged(object sender, SelectionChangedEventArgs args)
+        {
+            currentindex = (sender as DataGrid).SelectedIndex;
+        }
+
+        public async void RequestLeft_Click(object sender, RoutedEventArgs e)
+        {
+            bool WhetherInt=int.TryParse(requesthour, out int result);
+            if (requesthour == "0" || requesthour == null|| WhetherInt==false)
+            {
+                MessageDialog popup = new MessageDialog("Please input a valid request hour");
+                await popup.ShowAsync();
+            }
+            else if(currentindex<0)
+            {
+                MessageDialog popup = new MessageDialog("Please select a member that you want to request leave");
+                await popup.ShowAsync();
+            }
+            else
+            {
+                SqlDBHelper.UpdateItemFromDB(mymemlist[currentindex].Alias, result);
+                SqlDBHelper.UpdateItemFromCollection(currentindex, result, mymemlist);
+            }
+           
+        }
+
+
+        public void Groupselection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string selectedteam = (sender as ComboBox).SelectedItem.ToString();
+            var teamquery= from item in basiclist
+                           where item.Group==selectedteam
+                           select item;
+            mymemlist.Clear();
+            foreach(var item in teamquery)
+            {
+                mymemlist.Add(item);
+            }
+
+        }
     }
 }
