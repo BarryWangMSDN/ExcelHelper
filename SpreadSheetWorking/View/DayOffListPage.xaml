@@ -73,7 +73,6 @@
         <RelativePanel x:Name="searchform" Grid.Column="1">
             <AutoSuggestBox x:Name="querybox" QueryIcon="Find" Width="200" Margin="0,24,0,0" QuerySubmitted="{x:Bind MyDasyOffListVM.AutoSuggestBox_QuerySubmitted}"/>
             <ComboBox x:Name="groupselection" Width="200" RelativePanel.Below="querybox" Margin="0,24,0,0" SelectionChanged="{x:Bind MyDasyOffListVM.Groupselection_SelectionChanged}">
-                <x:String>All</x:String>
                 <x:String>MobileDev</x:String>
                 <x:String>DevTools</x:String>
                 <x:String>Language</x:String>

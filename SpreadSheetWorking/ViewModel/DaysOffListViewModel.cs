@@ -35,7 +35,8 @@ namespace SpreadSheetWorking.ViewModel
         public ObservableCollection<MemberInfo> MyMemberList
         {
             get { return mymemlist; }
-            set { mymemlist = value;         
+            set { mymemlist = value;
+                OnPropertyChanged();
             }
         }
 
@@ -187,16 +188,16 @@ namespace SpreadSheetWorking.ViewModel
 
         public void Groupselection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string selectedteam = (sender as ComboBox).SelectedItem.ToString();
-            var teamquery= from item in basiclist
-                           where item.Group==selectedteam
-                           select item;
-            mymemlist.Clear();
-            foreach(var item in teamquery)
-            {
-                mymemlist.Add(item);
-            }
-
+            string selectedteam = (sender as ComboBox).SelectedItem.ToString();         
+                var teamquery = from item in basiclist
+                                where item.Group == selectedteam
+                                select item;
+                mymemlist.Clear();
+                foreach (var item in teamquery)
+                {
+                    mymemlist.Add(item);
+                }
+            
         }
     }
 }
