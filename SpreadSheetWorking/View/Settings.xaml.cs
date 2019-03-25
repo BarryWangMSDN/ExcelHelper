@@ -48,7 +48,7 @@ namespace SpreadSheetWorking.View
             try
             {
                 Stream finalstream = await SpreadsheetHelper.filepathhelper();
-                SpreadsheetHelper.ReadDataFromExcel(finalstream, "Sheet1", "A2", "F29", memcoll);
+                SpreadsheetHelper.ReadDataFromExcel(finalstream, "Sheet1", "A2", "F35", memcoll);
                 mycollection = memcoll;
             }
             catch (Exception ex)

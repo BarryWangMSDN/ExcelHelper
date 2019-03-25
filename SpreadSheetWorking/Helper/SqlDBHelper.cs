@@ -11,12 +11,13 @@ using System.Threading.Tasks;
 namespace SpreadSheetWorking.Helper
 {
     public class SqlDBHelper
-    { 
-       
-        // Connection string for using Windows Authentication.
-        private static string connectionString =
-            @"Server=tcp:barryengineering.database.windows.net,1433;Initial Catalog=EngineeringDB;Persist Security Info=False;User ID=azureuser;Password=Azure1234567;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+    {
 
+        // Connection string for using Windows Authentication.(AzureDB)
+        //private static string connectionString =
+        //    @"Server=tcp:barryengineering.database.windows.net,1433;Initial Catalog=EngineeringDB;Persist Security Info=False;User ID=azureuser;Password=Azure1234567;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        //switch to use local network database. My Azure database now time out...such a pity
+        private static string connectionString = @"Data Source=172.17.16.133;Initial Catalog=ServerDB;User ID=sa;Password=Password001!";
         // This is an example connection string for using SQL Server Authentication.
         // private string connectionString =
         //     @"Data Source=YourServerName\YourInstanceName;Initial Catalog=DatabaseName; User Id=XXXXX; Password=XXXXX";
