@@ -1,4 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.UI.Controls;
+using SpreadSheetWorking.Model;
 using SpreadSheetWorking.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,11 @@ namespace SpreadSheetWorking.View
             mydaysofflistvm = daysofflistvm;
         }
 
-
-      
+        private void Memdatagrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            var x=(e.OriginalSource as FrameworkElement).DataContext;
+            var identiy = (x as MemberInfo).Alias;
+           
+        }
     }
 }

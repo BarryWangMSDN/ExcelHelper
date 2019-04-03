@@ -35,7 +35,6 @@ namespace SpreadSheetWorking.View
         private SplashScreen splash; // Variable to hold the splash screen object.
         internal bool dismissed = false; // Variable to track splash screen dismissal status.
         internal Frame rootFrame;
-        DispatcherTimer dispatcherTimer;
         private readonly CompositionLinearGradientBrush _gradientBrush1;
         private readonly CompositionLinearGradientBrush _gradientBrush2;
         private readonly SpriteVisual _backgroundVisual;
