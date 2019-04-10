@@ -102,8 +102,22 @@ namespace SpreadSheetWorking.ViewModel
 
         public DaysOffListViewModel()
         {
-            
-            basiclist = SqlDBHelper.CommonMemList;
+            //测数据
+            ObservableCollection<MemberInfo> members=new ObservableCollection<MemberInfo>();
+            for(int i=0;i<10;i++)
+            {
+                var memberinfo = new MemberInfo();
+                memberinfo.Userpicture = "http://pic38.nipic.com/20140121/14882888_203648493000_2.jpg";
+                memberinfo.UserName = "哈哈哈" + i;
+                memberinfo.Alias = "hh" + i;
+                memberinfo.WsAlias = "ass" + i;
+                memberinfo.Technology = "blay" + i;
+                memberinfo.Group = "alisa" + i;
+                memberinfo.VacationHour = i;
+                members.Add(memberinfo);
+            }
+            //basiclist = SqlDBHelper.CommonMemList;
+            basiclist = members;
             mymemlist = new ObservableCollection<MemberInfo>();
             foreach (var item in basiclist)
             {

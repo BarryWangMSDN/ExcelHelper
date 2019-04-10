@@ -66,6 +66,10 @@ namespace SpreadSheetWorking
                 {
                     ContentFrame.Navigate(typeof(DayOffListPage), args.RecommendedNavigationTransitionInfo);
                 }
+                if (navItemTag == "Second")
+                {
+                    ContentFrame.Navigate(typeof(InfoDetails), args.RecommendedNavigationTransitionInfo);
+                }
             }
 
         }

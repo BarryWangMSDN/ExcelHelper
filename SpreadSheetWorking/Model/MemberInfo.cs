@@ -20,12 +20,24 @@ namespace SpreadSheetWorking.Model
 
         public void emptymem()
         {
+            userpicture = null;
             username = null;
             alias = null;
             wsalias = null;
             technology = null;
             group = null;
             vacationhour = 0;
+        }
+        private string userpicture;
+
+        public string Userpicture
+        {
+            get { return userpicture; }
+            set
+            {
+                userpicture = value;
+                OnPropertyChanged();
+            }
         }
 
         private string username;
